@@ -103,7 +103,7 @@ async fn main() {
 
             buffer.curr = Some(shared);
 
-            println!("✅ WS started for current market");
+            // println!("✅ WS started for current market");
         }
 
         // 🔁 TRACK CURRENT MARKET
@@ -134,7 +134,7 @@ async fn main() {
 
             // 🔮 PRELOAD NEXT MARKET
             if secs_left <= 20 && buffer.futu.is_none() {
-                println!("🔮 Preloading next market...");
+                // println!("🔮 Preloading next market...");
 
                 let next_window = end_ts;
                 let next_slug = generate_slug(next_window);
@@ -145,12 +145,12 @@ async fn main() {
                         let next_title = next_market.question.clone();
                         
                         // Fetch initial prices for next market
-                        println!("📊 Fetching initial prices for next market...");
+                        // println!("📊 Fetching initial prices for next market...");
                         
                         let next_up_price = fetch_initial_price(&up_token).await;
                         let next_down_price = fetch_initial_price(&down_token).await;
                         
-                        println!("📈 NEXT MARKET INITIAL - UP: {:.4}, DOWN: {:.4}", next_up_price, next_down_price);
+                        // println!("📈 NEXT MARKET INITIAL - UP: {:.4}, DOWN: {:.4}", next_up_price, next_down_price);
 
                         let futu_data = MarketData::new(
                             next_market_id.clone(),
@@ -175,29 +175,29 @@ async fn main() {
 
                         buffer.futu = Some(futu_shared);
 
-                        println!("✅ Next market WS ready");
+                        // println!("✅ Next market WS ready");
                     }
                 }
             }
 
             // 🔄 MARKET END
             if secs_left <= 0 {
-                println!("🔄 shifting markets");
+                // println!("🔄 shifting markets");
 
                 buffer.shift();
 
                 if let Some(prev) = buffer.prev.as_ref() {
                     let prev_data = prev.lock().await;
 
-                    println!("\n📊 MARKET COMPLETED");
-                    println!("Market ID: {}", prev_data.market_id);
-                    println!("Title: {}", prev_data.title);
-                    println!("📈 INITIAL PRICES:");
-                    println!("UP:   {:.4}", prev_data.start_up_price);
-                    println!("DOWN: {:.4}", prev_data.start_down_price);
-                    println!("📉 LOWEST PRICES:");
-                    println!("LOW UP:   {:.4}", prev_data.low_up_price);
-                    println!("LOW DOWN: {:.4}", prev_data.low_down_price);
+                    // println!("\n📊 MARKET COMPLETED");
+                    // println!("Market ID: {}", prev_data.market_id);
+                    // println!("Title: {}", prev_data.title);
+                    // println!("📈 INITIAL PRICES:");
+                    // println!("UP:   {:.4}", prev_data.start_up_price);
+                    // println!("DOWN: {:.4}", prev_data.start_down_price);
+                    // println!("📉 LOWEST PRICES:");
+                    // println!("LOW UP:   {:.4}", prev_data.low_up_price);
+                    // println!("LOW DOWN: {:.4}", prev_data.low_down_price);
 
                     let result = resolve_result(
                         &prev_data.market_id,
@@ -206,7 +206,7 @@ async fn main() {
                     )
                     .await;
 
-                    println!("✅ RESULT: {}", result);
+                    // println!("✅ RESULT: {}", result);
                     
                     // 💾 SAVE TO DATABASE
                     if let Err(e) = db.save_market_result(
@@ -226,7 +226,7 @@ async fn main() {
                         println!("💾 Saved to database");
                     }
                     
-                    println!("==============================\n");
+                    // println!("==============================\n");
                 }
             }
         }

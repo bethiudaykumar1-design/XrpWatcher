@@ -131,7 +131,7 @@ pub async fn start_ws(
     
     match connect_async(url).await {
         Ok((mut ws, _)) => {
-            println!("✅ WS Connected for market: {}", expected_market_id);
+            // println!("✅ WS Connected for market: {}", expected_market_id);
             
             let sub = json!({
                 "assets_ids": [up_id, down_id],
@@ -184,10 +184,10 @@ pub async fn start_ws(
                                     let data = market_data.lock().await;
                                     let now = crate::utils::time::now_ts();
                                     if now > data.end_ts + 5 {
-                                        println!("🛑 WS stopping - market expired: {}", expected_market_id);
+                                        // println!("🛑 WS stopping - market expired: {}", expected_market_id);
                                         true
                                     } else if data.market_id != expected_market_id {
-                                        println!("🛑 WS stopping - market changed: {}", expected_market_id);
+                                        // println!("🛑 WS stopping - market changed: {}", expected_market_id);
                                         true
                                     } else {
                                         false
@@ -210,11 +210,11 @@ pub async fn start_ws(
             println!("⚠️ WS disconnected for market: {}", expected_market_id);
         }
         Err(e) => {
-            println!("❌ WS Connection failed for market {}: {:?}", expected_market_id, e);
+            // println!("❌ WS Connection failed for market {}: {:?}", expected_market_id, e);
             // Only sleep briefly and return - don't reconnect
             tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
         }
     }
     
-    println!("🏁 WS task ending for market: {}", expected_market_id);
+    // println!("🏁 WS task ending for market: {}", expected_market_id);
 }
