@@ -54,7 +54,7 @@ async fn main() {
 
         // 🟢 INIT CURRENT MARKET
         if buffer.curr.is_none() {
-            println!("\n🚀 NEW CYCLE: {}", slug);
+            // println!("\n🚀 NEW CYCLE: {}", slug);
 
             let market = match fetch_with_retry(&slug).await {
                 Some(m) => m,
@@ -223,7 +223,7 @@ async fn main() {
                     ).await {
                         eprintln!("❌ Failed to save to database: {}", e);
                     } else {
-                        println!("💾 Saved to database");
+                        // println!("💾 Saved to database");
                     }
                     
                     // println!("==============================\n");

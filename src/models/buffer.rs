@@ -52,7 +52,7 @@ impl MarketBuffer {
     }
 
     pub fn shift(&mut self) {
-        println!("🔄 SHIFTING MARKETS");
+        // println!("🔄 SHIFTING MARKETS");
 
         self.prev = self.curr.take();
         self.curr = self.futu.take();

@@ -123,7 +123,7 @@ pub async fn fetch_last_trade(token_id: &str) -> Option<f64> {
 pub async fn fetch_initial_price(token_id: &str) -> f64 {
     // Try midpoint first
     if let Some(price) = fetch_midpoint(token_id).await {
-        println!("✅ Got midpoint price: {:.4} for {}", price, token_id);
+       // println!("✅ Got midpoint price: {:.4} for {}", price, token_id);
         return price;
     }
     

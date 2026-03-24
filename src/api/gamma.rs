@@ -59,7 +59,7 @@ pub fn extract_token_ids(market: &Market) -> Option<(String, String)> {
 
 pub async fn fetch_with_retry(slug: &str) -> Option<Market> {
     for attempt in 1..=10 {
-        println!("Fetching market (attempt {})...", attempt);
+        // println!("Fetching market (attempt {})...", attempt);
 
         if let Some(market) = fetch_market_by_slug(slug).await {
             println!("✅ Market found!");
