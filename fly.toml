@@ -1,0 +1,24 @@
+# app1/fly.toml
+app = "your-app-name-1"  # Must be unique globally
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  DATABASE_URL = "postgres://..."
+  APP_ID = "app1"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
